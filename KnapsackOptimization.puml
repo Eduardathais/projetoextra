@@ -1,0 +1,52 @@
+@startuml
+
+' Classe otimizaEstoque.Produto
+class Produto {
+    - String nome
+    - int valor
+    - int peso
+    + Produto(String nome, int valor, int peso)
+    + int getValor()
+    + int getPeso()
+    + String getNome()
+    + String toString()
+}
+
+' Classe otimizaEstoque.Estoque
+class Estoque {
+    - int capacidade
+    - List<Produto> produtos
+    + Estoque(int capacidade)
+    + void adicionarProduto(Produto produto)
+    + int getCapacidade()
+    + List<Produto> getProdutos()
+}
+
+' Classe otimizaEstoque.KnapsackOptimization
+class KnapsackOptimization {
+    + List<Produto> otimizarEspacoEstoque(List<Produto> produtos, int capacidadeEstoque)
+}
+
+' Classe otimizaEstoque.Interface
+class Interface {
+    - Estoque estoque
+    - KnapsackOptimization otimizador
+    - Scanner scanner
+    + Interface()
+    + void iniciar()
+    + void cadastrarProduto()
+    + void executarOtimizacao()
+}
+
+' Classe otimizaEstoque.SistemaOtimizacaoEstoque
+class SistemaOtimizacaoEstoque {
+    + static void main(String[] args)
+}
+
+' Relacionamentos
+Produto -- Estoque : Contém >
+Estoque -- Interface : Usado por >
+KnapsackOptimization -- Interface : Usado por >
+SistemaOtimizacaoEstoque -- Interface : Inicia >
+
+@enduml
