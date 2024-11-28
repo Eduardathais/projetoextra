@@ -1,26 +1,21 @@
 package otimizaEstoque;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Estoque {
-    private int capacidade;
-    private List<Produto> produtos;
+class Estoque {
+    private final double capacity;
+    private final List<Item> items;
 
-    public Estoque(int capacidade) {
-        this.capacidade = capacidade;
-        this.produtos = new ArrayList<>();
+    public Estoque(double capacity, List<Item> items) {
+        this.capacity = capacity;
+        this.items = items;
     }
 
-    public void adicionarProduto(Produto produto) {
-        produtos.add(produto);
+    public double getCapacity() {
+        return capacity;
     }
 
-    public int getCapacidade() {
-        return capacidade;
-    }
-
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<Item> getItems() {
+        return items;
     }
 }

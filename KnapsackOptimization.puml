@@ -1,52 +1,54 @@
 @startuml
 
-' Classe otimizaEstoque.Produto
-class Produto {
-    - String nome
-    - int valor
-    - int peso
-    + Produto(String nome, int valor, int peso)
-    + int getValor()
-    + int getPeso()
-    + String getNome()
-    + String toString()
+' Classe Item (Produto)
+class Item {
+    - double weight
+    - double value
+    + Item(double weight, double value)
+    + double getWeight()
+    + double getValue()
 }
 
-' Classe otimizaEstoque.Estoque
+' Classe Estoque
 class Estoque {
-    - int capacidade
-    - List<Produto> produtos
-    + Estoque(int capacidade)
-    + void adicionarProduto(Produto produto)
-    + int getCapacidade()
-    + List<Produto> getProdutos()
+    - double capacidade
+    - List<Item> produtos
+    + Estoque(double capacidade, List<Item> produtos)
+    + double getCapacidade()
+    + List<Item> getProdutos()
 }
 
-' Classe otimizaEstoque.KnapsackOptimization
-class KnapsackOptimization {
-    + List<Produto> otimizarEspacoEstoque(List<Produto> produtos, int capacidadeEstoque)
+' Classe EstadoEstoque (KnapsackState)
+class EstadoEstoque {
+    - List<Item> produtosSelecionados
+    - double pesoTotal
+    - double valorTotal
+    + EstadoEstoque()
+    + EstadoEstoque(List<Item> produtosSelecionados)
+    + void adicionarProduto(Item item)
+    + List<Item> getProdutosSelecionados()
+    + double getPesoTotal()§
+    + double getValorTotal()
+    + double heuristica(double capacidade)
 }
 
-' Classe otimizaEstoque.Interface
-class Interface {
-    - Estoque estoque
-    - KnapsackOptimization otimizador
-    - Scanner scanner
-    + Interface()
-    + void iniciar()
-    + void cadastrarProduto()
-    + void executarOtimizacao()
+' Classe OtimizadorEstoque (KnapsackSolver)
+class OtimizadorEstoque {
+    - static final int MAX_QUEUE_SIZE
+    - static final int MAX_DEPTH
+    + EstadoEstoque resolver(Estoque estoque)
+    - double calcularPrioridade(EstadoEstoque estado)
 }
 
-' Classe otimizaEstoque.SistemaOtimizacaoEstoque
+' Classe SistemaOtimizacaoEstoque
 class SistemaOtimizacaoEstoque {
     + static void main(String[] args)
 }
 
 ' Relacionamentos
-Produto -- Estoque : Contém >
-Estoque -- Interface : Usado por >
-KnapsackOptimization -- Interface : Usado por >
-SistemaOtimizacaoEstoque -- Interface : Inicia >
+Item -- Estoque : Contém >
+Estoque -- OtimizadorEstoque : Usado por >
+OtimizadorEstoque -- EstadoEstoque : Manipula >
+SistemaOtimizacaoEstoque -- OtimizadorEstoque : Inicia >
 
 @enduml
